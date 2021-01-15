@@ -35,11 +35,11 @@
 
         <meta-data
             android:name="com.dieam.reactnativepushnotification.notification_channel_name"
-            android:value="Haermes Notification" />
+            android:value="Gym Pod Notification" />
 
         <meta-data
             android:name="com.dieam.reactnativepushnotification.notification_channel_description"
-            android:value="Haermes Notification" />
+            android:value="Gym Pod Notification" />
 
         <meta-data
             android:name="com.dieam.reactnativepushnotification.notification_foreground"
