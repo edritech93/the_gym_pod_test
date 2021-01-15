@@ -1,6 +1,7 @@
 import React from 'react';
 import { View as DefaultView, Image } from 'react-native';
 import { CardView, Text, PrimaryButton } from '../../components'
+import strings from '../../constants/localize';
 import { moderateScale } from '../../libs/scaling';
 
 export default function ItemPod(props) {
@@ -36,7 +37,7 @@ export default function ItemPod(props) {
                 }}>{item.title}</Text>
 
                 <PrimaryButton
-                    title={'Order'}
+                    title={strings.BOOK}
                     onPress={() => onPress(item)}
                 />
 
