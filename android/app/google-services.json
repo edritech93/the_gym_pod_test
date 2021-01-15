@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "492289273413",
-    "firebase_url": "https://boilerplate-rn.firebaseio.com",
-    "project_id": "boilerplate-rn",
-    "storage_bucket": "boilerplate-rn.appspot.com"
+    "project_number": "845485138277",
+    "project_id": "the-gym-pod",
+    "storage_bucket": "the-gym-pod.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:492289273413:android:e6d5ebbb8bee302dc13d2c",
+        "mobilesdk_app_id": "1:845485138277:android:74da73b783e71177af818c",
         "android_client_info": {
-          "package_name": "com.boilerplate.rn"
+          "package_name": "com.gym.pod"
         }
       },
       "oauth_client": [
         {
-          "client_id": "492289273413-65m5s2jbt9b8tlme81ige0q4p7q3r5bf.apps.googleusercontent.com",
+          "client_id": "845485138277-5jska81t6dho4cn6lo430gob4gvonopf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBPVDHNWgrkXUH4SYWJ4PayaD8AR1szHV4"
+          "current_key": "AIzaSyB43Ncl3qLsT722zQitYxQ7eoeKRqBqegg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "492289273413-65m5s2jbt9b8tlme81ige0q4p7q3r5bf.apps.googleusercontent.com",
+              "client_id": "845485138277-5jska81t6dho4cn6lo430gob4gvonopf.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "492289273413-51ip31ver3l7subprqr4n2m9ui62t09p.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.boilerplate.rn"
-              }
             }
           ]
         }
