@@ -100,7 +100,8 @@ export default function ModalRadioButton(props) {
                     <PrimaryButton
                         title={strings.SELECT}
                         style={{ width: '30%' }}
-                        onPress={handleSubmit} />
+                        onPress={handleSubmit}
+                    />
                 </View>
 
             </View>

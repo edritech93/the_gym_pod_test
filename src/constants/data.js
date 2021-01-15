@@ -1,14 +1,14 @@
-const baseUrl = {
+export const baseUrl = {
     DEV: 'http://157.230.38.16:8082/',
     LIVE: 'http://157.230.38.16:8080/',
 }
 
-const basicAuth = {
+export const basicAuth = {
     username: 'app.client',
     password: 'secret'
 }
 
-const dataFlag = [
+export const dataFlag = [
     {
         key: 0,
         value: "+62",
@@ -29,21 +29,21 @@ const dataFlag = [
     },
 ]
 
-const alertType = {
+export const alertType = {
     success: 'success',
     info: 'info',
     error: 'error',
     warning: 'warning'
 }
 
-const fetchData = {
+export const fetchData = {
     REQUEST: 'REQUEST',
     RELOAD: 'RELOAD',
     LOAD_MORE: 'LOAD_MORE',
     UPDATE_FILTER: 'UPDATE_FILTER'
 }
 
-const dataLanguage = [
+export const DATA_LANGUAGE = [
     {
         name: 'English',
         id: 'en',
@@ -54,11 +54,5 @@ const dataLanguage = [
     },
 ]
 
-export default {
-    baseUrl,
-    basicAuth,
-    alertType,
-    dataFlag,
-    fetchData,
-    dataLanguage,
-}
+export const USER_TEST = 'test';
+export const PASSWORD_TEST = '123qwe';

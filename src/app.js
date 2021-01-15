@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { StatusBar, SafeAreaView, View, Platform } from 'react-native';
+import React, { useEffect } from 'react';
+import { StatusBar, SafeAreaView, Platform } from 'react-native';
+import { DATA_LANGUAGE } from './constants/data';
 import { STORAGE } from './actions/types';
 import { Provider } from 'react-redux';
+import { Helper } from './libs/Helper';
 import { Colors } from './themes';
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
+import NotificationService from './libs/NotificationService';
 import messaging from '@react-native-firebase/messaging';
 import NavigationService from './libs/NavigationService';
 import NetInfo from '@react-native-community/netinfo';
@@ -10,19 +14,14 @@ import configureStore from './libs/configureStore';
 import UserDefaults from './libs/UserDefaults';
 import strings from './constants/localize';
 import StackNavigation from './router';
-import NotificationService from './libs/NotificationService';
-import PushNotificationIOS from "@react-native-community/push-notification-ios";
-import data from './constants/data';
 
 var PushNotification = require("react-native-push-notification");
 
 const store = configureStore();
-console.disableYellowBox = true;
 
 export default function App(props) {
 
     useEffect(() => {
-        _registerNotification();
         _loadLanguage();
         _setupNetwork();
         _setupNotification();
@@ -33,13 +32,9 @@ export default function App(props) {
         if (languageStorage) {
             strings.setLanguage(languageStorage.id);
         } else {
-            UserDefaults.set(STORAGE.LANGUAGE, data.dataLanguage[0]);
-            strings.setLanguage(data.dataLanguage[0].id);
+            UserDefaults.set(STORAGE.LANGUAGE, DATA_LANGUAGE[0]);
+            strings.setLanguage(DATA_LANGUAGE[0].id);
         }
-    }
-
-    async function _registerNotification() {
-        await messaging().registerDeviceForRemoteMessages();
     }
 
     function _setupNetwork() {
@@ -56,15 +51,8 @@ export default function App(props) {
 
     function _setupNotification() {
         messaging().onMessage(async remoteMessage => {
-            Freshchat.isFreshchatNotification(remoteMessage.data, (freshchatNotification) => {
-                if (freshchatNotification) {
-                    Freshchat.handlePushNotification(remoteMessage.data);
-                }
-                else {
-                    const { title, body } = remoteMessage.notification;
-                    NotificationService.showLocalNotification(title, body, remoteMessage.data.custom_notification);
-                }
-            })
+            const { title, body } = remoteMessage.notification;
+            NotificationService.showLocalNotification(title, body, remoteMessage.data.custom_notification);
         });
 
         messaging().setBackgroundMessageHandler(async remoteMessage => {
@@ -107,16 +95,13 @@ export default function App(props) {
 
     async function navigateViaNotification(notification) {
         if (notification && notification.data) {
-
             const itemId = notification.data.Id;
-            const screen = notification.data.Screen ? notification.data.Screen : "Home";
-            const isApprover = notification.data.isApprover ? notification.data.isApprover : false;
+            const screen = notification.data.Screen ? notification.data.Screen : "Dashboard";
             const token = await Helper.getToken();
 
-            if (notification && token) {
+            if (token) {
                 NavigationService.navigate(screen, {
                     Id: itemId,
-                    isApprover: isApprover,
                 });
             }
         }
@@ -130,7 +115,7 @@ export default function App(props) {
             forceInset={{ bottom: 'always' }}>
 
             <StatusBar
-                barStyle="dark-content"
+                barStyle={"dark-content"}
                 backgroundColor={Colors.primaryDark} />
 
             <Provider store={store}>

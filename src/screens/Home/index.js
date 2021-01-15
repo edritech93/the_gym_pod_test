@@ -1,48 +1,61 @@
-import React, { useEffect } from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import { moderateScale } from '../../libs/scaling';
-import { Colors } from '../../themes';
-import Avatar from '../../components/Avatar';
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: Colors.green,
-        paddingHorizontal: moderateScale(16),
-    },
-});
+import React, { useEffect, useState } from 'react';
+import { View, Loader, FlatList, } from '../../components'
+import ItemPod from './ItemPod';
 
 export default function Home(props) {
 
+    const [loading, setLoading] = useState(false);
+    const [dataSource, setDataSource] = useState([]);
+
     useEffect(() => {
-        props.navigation.setParams({ profile: null });
-        props.navigation.setParams({ onPressProfile: () => {_onPressProfile()} });
+        _loadDataSource();
+        _loadProfile();
     }, []);
 
-    function _onPressProfile() {
-        props.navigation.navigate('Profile');
+    function _loadProfile() {
+        //NOTE: for testing only
+        const profile = {
+
+        }
+    }
+
+    function _loadDataSource() {
+        //NOTE: for testing only
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            let dataTest = []
+            for (let i = 0; i < 10; i++) {
+                dataTest.push({
+                    imageUrl: 'https://picsum.photos/200/300',
+                    title: `The Gym Pod ${i + 1}`
+                })
+            }
+            setDataSource(dataTest);
+        }, 100);
+    }
+
+    function _onPressItem(item) {
+        props.navigation.navigate('BookPod', {
+            item: item
+        })
+    }
+
+    const _renderItem = ({ item }) => {
+        return (<ItemPod item={item} onPress={() => _onPressItem(item)} />)
     }
 
     return (
-        <View style={styles.container}>
+        <View>
+
+            <FlatList
+                data={dataSource}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={_renderItem}
+            />
+
+            <Loader visible={loading} />
 
         </View>
     );
 }
-
-Home.navigationOptions = ({ route }) => ({
-    headerLeft: () => {
-        const profile = route.params?.profile ?? null;
-        const onPressProfile = route.params?.onPressProfile ?? null;
-        return (
-            <TouchableOpacity style={{ marginLeft: moderateScale(12) }} onPress={onPressProfile}>
-                <Avatar
-                    source={profile && profile.avatar ? { uri: profile.avatar } :
-                        require('../../assets/images/profile_placeholder-100.png')}
-                    nameTag={profile && profile.name ? profile.name : null}
-                    size={moderateScale(28)} />
-            </TouchableOpacity>
-        )
-    },
-});

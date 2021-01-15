@@ -7,11 +7,10 @@ import { connect } from 'react-redux';
 import { Colors } from './themes';
 import Splash from './containers/Splash';
 import Login from './containers/Login';
-import Forgot from './containers/Forgot';
 import Home from './containers/Home';
-import Order from './containers/Order';
 import Notification from './containers/Notification';
 import Profile from './containers/Profile';
+import BookPod from './containers/BookPod';
 import IconWithBadge from './components/IconWithBadge';
 
 const Tab = createBottomTabNavigator();
@@ -43,20 +42,6 @@ function HomeTab() {
     )
 }
 
-function OrderTab() {
-    return (
-        <Stack.Navigator screenOptions={({ navigation }) => ({
-            ...defaultStyle,
-        })}>
-            <Stack.Screen
-                name={'Order'}
-                component={Order}
-                options={Order.navigationOptions}
-            />
-        </Stack.Navigator>
-    )
-}
-
 function NotificationTab() {
     return (
         <Stack.Navigator screenOptions={({ navigation }) => ({
@@ -66,6 +51,20 @@ function NotificationTab() {
                 name={'Notification'}
                 component={Notification}
                 options={Notification.navigationOptions}
+            />
+        </Stack.Navigator>
+    )
+}
+
+function ProfileTab() {
+    return (
+        <Stack.Navigator screenOptions={({ navigation }) => ({
+            ...defaultStyle,
+        })}>
+            <Stack.Screen
+                name={'Profile'}
+                component={Profile}
+                options={Profile.navigationOptions}
             />
         </Stack.Navigator>
     )
@@ -87,7 +86,8 @@ function DashboardApp(props) {
                             name={route.name}
                             color={color}
                             focused={focused}
-                            badgeCount={badgeTotal} />
+                            badgeCount={badgeTotal}
+                        />
                     );
                 },
             })}
@@ -97,8 +97,9 @@ function DashboardApp(props) {
                 safeAreaInset: { bottom: 'never', top: 'never' },
             }}>
             <Tab.Screen name={'Home'} component={HomeTab} />
-            <Tab.Screen name={'Order'} component={OrderTab} />
             <Tab.Screen name={'Notification'} component={NotificationTab} />
+            <Tab.Screen name={'Profile'} component={ProfileTab} />
+
         </Tab.Navigator>
     );
 }
@@ -144,19 +145,14 @@ export default function StackNavigation(props) {
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen
-                    name={'Forgot'}
-                    component={Forgot}
-                    options={{ title: null }}
-                />
-                <Stack.Screen
                     name={'Dashboard'}
                     component={Dashboard}
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen
-                    name={'Profile'}
-                    component={Profile}
-                    options={{ title: null }}
+                    name={'BookPod'}
+                    component={BookPod}
+                    options={BookPod.navigationOptions}
                 />
 
             </Stack.Navigator>

@@ -1,5 +1,7 @@
-import moment from 'moment';
+import { STORAGE } from '../actions/types';
+import AsyncStorage from '@react-native-community/async-storage';
 import messaging from '@react-native-firebase/messaging';
+import moment from 'moment';
 
 export const Helper = {
     nowDate: () => {
@@ -27,6 +29,13 @@ export const Helper = {
                 }
             });
         });
+    },
+    getToken: async () => {
+        const token = await AsyncStorage.getItem(STORAGE.TOKEN);
+        return token;
+    },
+    setToken: (token) => {
+        AsyncStorage.setItem(STORAGE.TOKEN, token);
     },
 }
 

@@ -1,46 +1,40 @@
-import React, { Component } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
-import { STORAGE } from './../../actions/types';
-import { Colors, } from '../../themes';
-import AsyncStorage from '@react-native-community/async-storage';
+import React, { useEffect } from 'react';
+import { View as DefaultView } from 'react-native';
+import { View, Loader, Title, } from '../../components';
+import { moderateScale } from '../../libs/scaling';
+import { Helper } from '../../libs/Helper';
 import NavigationService from './../../libs/NavigationService';
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: Colors.white,
-    },
-})
+export default function Splash(props) {
 
-export default class Splash extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
+    useEffect(() => {
+        setTimeout(() => {
+            _loadToken();
+        }, 3000);
+    }, []);
 
-    async componentDidMount() {
-        const token = await AsyncStorage.getItem(STORAGE.TOKEN);
+    async function _loadToken() {
+        const token = await Helper.getToken();
         if (token) {
-            setTimeout(() => {
-                NavigationService.resetRoot("Dashboard");
-            }, 3000);
+            NavigationService.resetRoot("Dashboard");
         } else {
-            setTimeout(() => {
-                NavigationService.resetRoot("Login");
-            }, 3000);
+            NavigationService.resetRoot("Login");
         }
     }
 
-    render() {
-        return (
-            <View style={styles.container}>
-                <Image
-                    source={require('../../assets/images/arrow_left.png')}
-                />
-            </View>
-        );
-    }
+    return (
+        <View style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+        }}>
+            <Title>Logo Here</Title>
+
+            <DefaultView style={{
+                position: 'absolute',
+                bottom: moderateScale(32),
+            }}>
+                <Loader visible={true} />
+            </DefaultView>
+        </View>
+    );
 }

@@ -1,11 +1,10 @@
 {
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
     "LOGIN": "Login",
     "SETTING": "Setting",
     "CHANGE_LANGUAGE": "Change Language",
     "ABOUT": "About",
     "LOGOUT": "Logout",
-    "LOGIN_FAILED": "Login Failed.\nPlease fill in your login credential.",
-    "FORGOT_PASSWORD": "Forgot Password",
-    "CLICK_HERE": "Click Here",
-    "SEND": "SEND"
+    "SELECT": "Select"
 }

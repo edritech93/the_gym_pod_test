@@ -1,11 +1,10 @@
 {
+    "USERNAME": "Nama Pengguna",
+    "PASSWORD": "Kata Sandi",
     "LOGIN": "Masuk",
     "SETTING": "Pengaturan",
     "CHANGE_LANGUAGE": "Ganti Bahasa",
     "ABOUT": "Tentang",
     "LOGOUT": "Keluar",
-    "LOGIN_FAILED": "Login Gagal.\nMohon isi data login.",
-    "FORGOT_PASSWORD": "Lupa Password",
-    "CLICK_HERE": "Klik Disini",
-    "SEND": "Kirim"
+    "SELECT": "Pilih"
 }

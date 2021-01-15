@@ -4,14 +4,14 @@ import {
     Alert
 } from 'react-native';
 import { Loader, ModalRadioButton, Avatar, Text, Title, } from '../../components';
+import { DATA_LANGUAGE } from '../../constants/data';
 import { moderateScale } from '../../libs/scaling';
 import { STORAGE } from '../../actions/types';
-import { UI, Colors } from '../../themes';
+import { Colors } from '../../themes';
 import { API } from '../../libs/api';
 import NavigationService from './../../libs/NavigationService';
 import UserDefaults from '../../libs/UserDefaults';
 import strings from '../../constants/localize';
-import data from '../../constants/data';
 import styles from './styles';
 
 let modalLanguage;
@@ -20,27 +20,26 @@ export default function Profile(props) {
 
     const [loading, setLoading] = useState(false);
     const [profile, setProfile] = useState(null);
-    const [dataLanguage, setDataLanguage] = useState([]);
     const [selectedLanguage, setSelectedLanguage] = useState(null);
 
     const dataSource = [
         {
             id: 0,
-            name: strings.LANGUAGE,
+            name: strings.CHANGE_LANGUAGE,
             image: require('../../assets/images/translate-dark-24.png'),
-            onPress: () => { _onPressLanguage() }
+            onPress: () => _onPressLanguage()
         },
         {
             id: 1,
             name: strings.ABOUT,
             image: require('../../assets/images/about-dark-24.png'),
-            onPress: () => { _onPressAbout() }
+            onPress: () => _onPressAbout()
         },
         {
             id: 2,
             name: strings.LOGOUT,
             image: null,
-            onPress: () => { _onPressLogout() }
+            onPress: () => _onPressLogout()
         },
     ]
 
@@ -51,7 +50,6 @@ export default function Profile(props) {
     async function _loadProfile() {
         const dataProfile = await UserDefaults.get(STORAGE.USER);
         const selected = await UserDefaults.get(STORAGE.LANGUAGE);
-        setDataLanguage(data.dataLanguage);
         setSelectedLanguage(selected);
         setProfile(dataProfile);
     }
@@ -149,19 +147,13 @@ export default function Profile(props) {
         } else return null;
     }
 
-    const renderSeparator = () => {
-        return (
-            <View style={UI.devider} />
-        )
-    }
-
     function _renderModalLanguage() {
         return (
             <ModalRadioButton
                 modalRef={(modal) => { modalLanguage = modal; }}
-                dataSource={dataLanguage}
+                dataSource={DATA_LANGUAGE}
                 selected={selectedLanguage}
-                title={strings.LANGUAGE}
+                title={strings.CHANGE_LANGUAGE}
                 onSubmitRequest={(selected) => {
                     setSelectedLanguage(selected);
                     UserDefaults.set(STORAGE.LANGUAGE, selected);
@@ -175,18 +167,19 @@ export default function Profile(props) {
 
     return (
         <View style={{ flex: 1 }}>
+
             <FlatList style={styles.container}
                 data={dataSource}
                 keyExtractor={(item, index) => index.toString()}
                 ListHeaderComponent={renderHeader}
                 renderItem={renderItem.bind(this)}
-                ItemSeparatorComponent={renderSeparator}
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false} />
 
             {_renderModalLanguage()}
 
             <Loader visible={loading} />
+
         </View>
     );
 }

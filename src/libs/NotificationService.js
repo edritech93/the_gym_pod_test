@@ -16,8 +16,8 @@ function showLocalNotification(title, description, data) {
         id: this.lastId,
         autoCancel: true,
         vibrate: true,
-        tag: 'Haermes',
-        group: 'Haermes',
+        tag: 'TheGymPod',
+        group: 'TheGymPod',
         ongoing: false,
         bigText: description,
         smallIcon: "ic_notification",
@@ -25,7 +25,7 @@ function showLocalNotification(title, description, data) {
 
         /* iOS only properties */
         alertAction: 'view',
-        category: 'Haermes',
+        category: 'TheGymPod',
         userInfo: notificationData ? notificationData : {}, // (optional) default: {} (using null throws a JSON value '<null>' error)
 
         /* iOS and Android properties */

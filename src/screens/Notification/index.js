@@ -1,24 +1,48 @@
-import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { moderateScale } from '../../libs/scaling';
-import { Colors, } from '../../themes';
+import React, { useState, useEffect } from 'react';
+import { View, FlatList, Loader } from '../../components';
+import ItemNotification from './ItemNotification';
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: Colors.accent,
-        paddingHorizontal: moderateScale(16),
-    },
-});
+export default function Notification(props) {
 
-export default class Notification extends Component {
+    const [loading, setLoading] = useState(false);
+    const [dataSource, setDataSource] = useState([]);
 
-    render() {
-        return (
-            <View style={styles.container}>
+    useEffect(() => {
+        _loadDataSource();
+    }, []);
 
-            </View>
-        );
+    function _loadDataSource() {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            let dataTest = []
+            for (let i = 0; i < 10; i++) {
+                dataTest.push({
+                    title: `Title Notification ${i + 1}`,
+                    description: `Description Notification ${i + 1}`,
+                })
+            }
+            setDataSource(dataTest);
+        }, 3000);
     }
+
+    const _renderItem = ({ item }) => {
+        return (<ItemNotification item={item} />)
+    }
+
+    return (
+        <View style={{
+            paddingHorizontal: 0,
+        }}>
+
+            <FlatList
+                data={dataSource}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={_renderItem}
+            />
+
+            <Loader visible={loading} />
+
+        </View>
+    );
 }

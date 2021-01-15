@@ -3,7 +3,7 @@ import { View as DefautlView } from 'react-native';
 import { moderateScale } from '../libs/scaling';
 import { Colors } from '../themes';
 
-export function View(props) {
+export default function View(props) {
     const { children, style, ...restProps } = props;
     return (
         <DefautlView style={[

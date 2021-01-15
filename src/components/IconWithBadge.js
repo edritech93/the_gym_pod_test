@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { moderateScale } from '../libs/scaling';
+import { Colors } from '../themes';
 import Badge from './Badge';
 
 const styles = StyleSheet.create({
@@ -21,27 +22,15 @@ export default function IconWithBadge(props) {
     let imageSrc = defaultImage;
     switch (props.name) {
       case 'Home':
-        if (props.focused) {
-          imageSrc = require('./../assets/images/arrow_left.png');
-        } else {
-          imageSrc = require('./../assets/images/arrow_left.png');
-        }
-        break;
-
-      case 'Order':
-        if (props.focused) {
-          imageSrc = require('./../assets/images/arrow_left.png');
-        } else {
-          imageSrc = require('./../assets/images/arrow_left.png');
-        }
+        imageSrc = require('./../assets/images/outlet-white-24px.png');
         break;
 
       case 'Notification':
-        if (props.focused) {
-          imageSrc = require('./../assets/images/arrow_left.png');
-        } else {
-          imageSrc = require('./../assets/images/arrow_left.png');
-        }
+        imageSrc = require('./../assets/images/mail-white-24px.png');
+        break;
+
+      case 'Profile':
+        imageSrc = require('./../assets/images/about-dark-24.png');
         break;
 
       default:
@@ -52,7 +41,11 @@ export default function IconWithBadge(props) {
 
   return (
     <View style={styles.container}>
-      <Image source={image} />
+      <Image
+        style={{
+          tintColor: props.focused ? Colors.primary : Colors.black
+        }} source={image}
+      />
       <Badge count={props.badgeCount} />
     </View>
   );
