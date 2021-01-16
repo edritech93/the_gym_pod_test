@@ -10,6 +10,9 @@ export const Helper = {
     getDateTimeNow: () => {
         return moment().toString();
     },
+    datePicker: (date) => {
+        return moment(date).format('DD MMM YYYY');
+    },
     getTokenFcm: () => {
         return new Promise(function (resolve, reject) {
             messaging().hasPermission().then(enabled => {
@@ -37,6 +40,9 @@ export const Helper = {
     setToken: (token) => {
         AsyncStorage.setItem(STORAGE.TOKEN, token);
     },
+    removeToken: () => {
+        AsyncStorage.removeItem(STORAGE.TOKEN);
+    }
 }
 
 export const FilterDate = {

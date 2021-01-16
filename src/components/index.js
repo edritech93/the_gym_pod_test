@@ -14,6 +14,9 @@ import Avatar from './Avatar';
 import Inputs from './Inputs';
 import { Card, CardView } from './Card';
 import FlatList from './FlatList';
+import DateRangePicker from './DateRangePicker';
+import DateRangeCalendar from './DateRangeCalendar';
+import ModalCalendarRange from './ModalCalendarRange';
 
 export {
     PrimaryButton,
@@ -32,4 +35,7 @@ export {
     Card,
     CardView,
     FlatList,
+    DateRangePicker,
+    DateRangeCalendar,
+    ModalCalendarRange,
 }

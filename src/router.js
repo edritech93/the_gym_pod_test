@@ -10,8 +10,9 @@ import Login from './containers/Login';
 import Home from './containers/Home';
 import Notification from './containers/Notification';
 import Profile from './containers/Profile';
-import BookPod from './containers/BookPod';
+import BookingPod from './containers/BookingPod';
 import IconWithBadge from './components/IconWithBadge';
+import strings from './constants/localize';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -150,9 +151,9 @@ export default function StackNavigation(props) {
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen
-                    name={'BookPod'}
-                    component={BookPod}
-                    options={BookPod.navigationOptions}
+                    name={'BookingPod'}
+                    component={BookingPod}
+                    options={BookingPod.navigationOptions}
                 />
 
             </Stack.Navigator>

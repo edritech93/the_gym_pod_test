@@ -13,6 +13,7 @@ import NavigationService from './../../libs/NavigationService';
 import UserDefaults from '../../libs/UserDefaults';
 import strings from '../../constants/localize';
 import styles from './styles';
+import { Helper } from '../../libs/Helper';
 
 let modalLanguage;
 
@@ -65,24 +66,7 @@ export default function Profile(props) {
     }
 
     function _onPressLogout() {
-        setLoading(true);
-        API.singleRequest(API.FcmTokenDelete()).then((response => {
-            console.log("removeDeviceToken Successfully:", response[0].data);
-        })).catch((error) => {
-            console.log('removeDeviceToken => ', error);
-        }).finally(() => {
-            const keys = [STORAGE.USER, STORAGE.TOKEN, STORAGE.CONFIGURATION];
-            UserDefaults.multiRemove(keys);
-            _resetLoading();
-            _gotoLogin();
-        })
-    }
-
-    function _resetLoading() {
-        setLoading(false);
-    }
-
-    function _gotoLogin() {
+        Helper.removeToken();
         NavigationService.resetRoot('Login');
     }
 
@@ -95,32 +79,34 @@ export default function Profile(props) {
         }
         return (
             <TouchableOpacity style={styles.wrapItem} onPress={item.onPress}>
-                <View style={{ flex: 1, flexDirection: 'row' }}>
-                    {
-                        item.image ? (
-                            <Image style={{ marginRight: moderateScale(16) }}
-                                source={item.image} />
-                        ) : null
-                    }
+
+                <View style={{
+                    flex: 1,
+                    flexDirection: 'row'
+                }}>
+                    {item.image && (
+                        <Image
+                            style={{ marginRight: moderateScale(16) }}
+                            source={item.image}
+                        />
+                    )}
                     <Text style={{
                         color: colorName
                     }}>{item.name}</Text>
                 </View>
 
-                {
-                    item.image ? (
-                        <View style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                        }}>
-                            <Text style={{
-                                color: Colors.greyBorder
-                            }}>{(index == 0) && selectedLanguage ? selectedLanguage.name : null}</Text>
+                {item.image && (
+                    <View style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                    }}>
+                        <Text style={{
+                            color: Colors.greyBorder
+                        }}>{(index == 0) && selectedLanguage ? selectedLanguage.name : null}</Text>
 
-                            <Image source={require('../../assets/images/keyboard_arrow_right-dark-24.png')} />
-                        </View>
-                    ) : null
-                }
+                        <Image source={require('../../assets/images/keyboard_arrow_right-dark-24.png')} />
+                    </View>
+                )}
 
             </TouchableOpacity>
         )

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { showAlert } from '../actions/app';
-import Screen from '../screens/Home/BookPod';
+import Screen from '../screens/Home/BookingPod';
 
 const mapStateToProps = (state, ownProps) => {
     return {}

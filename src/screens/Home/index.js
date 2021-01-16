@@ -36,8 +36,11 @@ export default function Home(props) {
     }
 
     function _onPressItem(item) {
-        props.navigation.navigate('BookPod', {
-            item: item
+        props.navigation.navigate('BookingPod', {
+            item: item,
+            onPassProps: () => {
+                _loadDataSource();
+            }
         })
     }
 
