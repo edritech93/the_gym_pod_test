@@ -1,12 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { View as DefaultView, StyleSheet, Image } from 'react-native';
+import { View as DefaultView, StyleSheet } from 'react-native';
 import { PrimaryButton, SecondaryButton, } from './Buttons';
 import { Text, Title } from './Text';
 import { CardView } from './Card';
 import { moderateScale } from '../libs/scaling';
 import { Colors, Metrics } from '../themes';
 import { Helper } from '../libs/Helper';
-import DateRangeCalendar from './DateRangeCalendar';
+import Calendar from './Calendar';
 import ModalContent from './ModalContent';
 import Modal from 'react-native-modalbox';
 
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     }
 });
 
-export default function ModalCalendarRange(props) {
+export default function ModalCalendar(props) {
 
     const {
         initialRange,
@@ -62,7 +62,7 @@ export default function ModalCalendarRange(props) {
     const [startDate, setStartDate] = useState(initialRange[0]);
     const [endDate, setEndDate] = useState(initialRange[1]);
 
-    const modalRef = useRef("MODAL_CALENDAR_RANGE");
+    const modalRef = useRef("MODAL_CALENDAR");
 
     useEffect(() => {
         props.modalRef(modalRef.current);
@@ -94,35 +94,29 @@ export default function ModalCalendarRange(props) {
 
             <ModalContent />
 
-            <Title style={{ marginLeft: moderateScale(16) }}>{title}</Title>
+            <Title style={{
+                marginLeft: moderateScale(16)
+            }}>{title}</Title>
 
             <DefaultView style={styles.divider} />
 
             <DefaultView style={styles.textContainer}>
+
                 <DefaultView style={styles.selectedDateContainer}>
                     <Text style={styles.label}>{endDate != null ? 'Start Date' : 'Selected Date'}</Text>
                     <Text>{Helper.datePicker(startDate)}</Text>
                 </DefaultView>
 
-                {/* {
-                    endDate != null ?
-                        <Image
-                            style={{ alignSelf: 'flex-end', marginBottom: moderateScale(5) }}
-                            source={require('../../assets/images/arrow-right-alt.png')} />
-                        : null
-                } */}
+                {endDate && (
+                    <DefaultView style={styles.selectedDateContainer}>
+                        <Text style={styles.label}>End Date</Text>
+                        <Text>{Helper.datePicker(endDate)}</Text>
+                    </DefaultView>
+                )}
 
-                {
-                    endDate != null ?
-                        <DefaultView style={styles.selectedDateContainer}>
-                            <Text style={styles.label}>End Date</Text>
-                            <Text>{Helper.datePicker(endDate)}</Text>
-                        </DefaultView>
-                        : null
-                }
             </DefaultView>
 
-            <DateRangeCalendar
+            <Calendar
                 initialRange={initialRange}
                 style={{
                     height: '78%'
@@ -149,11 +143,11 @@ export default function ModalCalendarRange(props) {
                     style={{
                         marginRight: moderateScale(16),
                     }}
-                    onPress={() => { modalRef.current.close() }} />
+                    onPress={() => modalRef.current.close()} />
 
                 <PrimaryButton
                     title={'Ok'}
-                    onPress={() => { _onPressSubmit() }} />
+                    onPress={() => _onPressSubmit()} />
 
             </CardView>
 

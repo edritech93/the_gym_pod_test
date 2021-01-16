@@ -3,9 +3,9 @@ import { CalendarList } from 'react-native-calendars';
 import { moderateScale } from '../libs/scaling';
 import { Fonts, Colors } from '../themes';
 
-const XDate = require('../../node_modules/xdate');
+const XDate = require('xdate');
 
-export default function DateRangeCalendar(props) {
+export default function Calendar(props) {
 
     const {
         initialRange,

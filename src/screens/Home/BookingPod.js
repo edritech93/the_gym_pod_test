@@ -1,7 +1,7 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { } from 'react-native';
 import {
-    View, Title, ModalCalendarRange, DateRangePicker, PrimaryButton,
+    View, Title, ModalCalendar, DateRangePicker, PrimaryButton,
     Loader,
 } from '../../components';
 import { moderateScale } from '../../libs/scaling';
@@ -41,7 +41,7 @@ export default function BookingPod(props) {
 
     function _renderModalCalendarRange() {
         return (
-            <ModalCalendarRange
+            <ModalCalendar
                 title={'Booking Date'}
                 modalRef={(modal) => modalCalendarRange = modal}
                 initialRange={[startDate, endDate]}
