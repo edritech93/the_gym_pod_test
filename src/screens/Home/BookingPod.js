@@ -1,12 +1,13 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { } from 'react-native';
 import {
-    View, Title, ModalCalendar, DateRangePicker, PrimaryButton,
+    View, ModalCalendar, DateRangePicker, PrimaryButton,
     Loader,
 } from '../../components';
 import { moderateScale } from '../../libs/scaling';
 import { Helper } from '../../libs/Helper';
 import strings from '../../constants/localize';
+import { Colors } from '../../themes';
 
 let modalCalendarRange;
 
@@ -20,12 +21,39 @@ export default function BookingPod(props) {
     const [loading, setLoading] = useState(false);
     const [startDate, setStartDate] = useState(Helper.nowDate());
     const [endDate, setEndDate] = useState(Helper.nowDate());
+    const [bookedDate, setBookedDate] = useState([]);
 
     useLayoutEffect(() => {
         props.navigation.setOptions({
             title: item.title
         })
     }, [props.navigation])
+
+    useEffect(() => {
+        _loadBookingDate();
+    }, []);
+
+    function _loadBookingDate() {
+        let objMarked = {}
+        for (let i = 0; i < 10; i++) {
+            const date = randomDate(new Date(), new Date(2021, 2, 1));
+            objMarked[Helper.dateFormat(date)] = {
+                disabled: true,
+                color: Colors.red,
+                textColor: Colors.white,
+                startingDay: true,
+                endingDay: true,
+            }
+        }
+        console.log('------------------------------------');
+        console.log('objMarked => ', objMarked);
+        console.log('------------------------------------');
+        setBookedDate(objMarked)
+    }
+
+    function randomDate(start, end) {
+        return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())).toISOString();
+    }
 
     function _onPressBook() {
         setLoading(true);
@@ -44,6 +72,8 @@ export default function BookingPod(props) {
             <ModalCalendar
                 title={'Booking Date'}
                 modalRef={(modal) => modalCalendarRange = modal}
+                booked={bookedDate}
+                isSingle={true}
                 initialRange={[startDate, endDate]}
                 onSubmit={(start, end) => {
                     setStartDate(start);

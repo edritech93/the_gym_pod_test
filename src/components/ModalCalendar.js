@@ -57,6 +57,7 @@ export default function ModalCalendar(props) {
         title,
         isSingle = false,
         onSubmit,
+        booked = [],
     } = props
 
     const [startDate, setStartDate] = useState(initialRange[0]);
@@ -134,6 +135,7 @@ export default function ModalCalendar(props) {
                     markColor: Colors.primary,
                     markTextColor: Colors.white
                 }}
+                booked={booked}
             />
 
             <CardView style={styles.wrapButton}>

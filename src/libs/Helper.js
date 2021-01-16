@@ -13,6 +13,12 @@ export const Helper = {
     datePicker: (date) => {
         return moment(date).format('DD MMM YYYY');
     },
+    dateFormat: (date) => {
+        return moment(date).format('YYYY-MM-DD');
+    },
+    isDateAfter: (selectedDate, compareTo) => {
+        return moment(selectedDate).isAfter(compareTo);
+    },
     getTokenFcm: () => {
         return new Promise(function (resolve, reject) {
             messaging().hasPermission().then(enabled => {
