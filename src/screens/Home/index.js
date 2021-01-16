@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Loader, FlatList, } from '../../components'
+import { USER_TEST } from '../../constants/data';
 import ItemPod from './ItemPod';
 
 export default function Home(props) {
@@ -14,9 +15,11 @@ export default function Home(props) {
 
     function _loadProfile() {
         //NOTE: for testing only
-        const profile = {
-
+        const dataTest = {
+            name: USER_TEST,
+            email: 'test@gmail.com'
         }
+        props.profileChange(dataTest);
     }
 
     function _loadDataSource() {

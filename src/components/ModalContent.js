@@ -2,7 +2,6 @@ import React from 'react';
 import { View, StyleSheet, StatusBar, Platform } from 'react-native';
 import { Colors } from '../themes';
 
-
 const styles = StyleSheet.create({
     boxPanel: {
         height: 20,

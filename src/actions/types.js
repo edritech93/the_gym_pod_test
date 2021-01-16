@@ -21,3 +21,4 @@ export const STORAGE = defineAction('STORAGE', [USER, TOKEN, REFRESH_TOKEN, CONF
     LANGUAGE, LOGIN_SAVED, DEVICE_TOKEN], appNamespace);
 export const CONNECTION_STATUS = defineAction('CONNECTION_STATUS', [CHANGE], appNamespace);
 export const ALERT = defineAction('ALERT', [SHOW], appNamespace);
+export const PROFILE = defineAction('PROFILE', [CHANGE], appNamespace);
