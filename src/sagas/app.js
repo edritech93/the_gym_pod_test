@@ -18,7 +18,7 @@ export function* viewAlertShow(action) {
             }
             setTimeout(() => {
                 Alert.alert(
-                    'Boilerplate',
+                    'The Gym Pod',
                     dataMessage,
                     [
                         {

@@ -15,7 +15,7 @@ import {
     LOGIN_SAVED,
     DEVICE_TOKEN,
 } from '../constants/state';
-const appNamespace = defineAction('BOILERPLATE');
+const appNamespace = defineAction('THE_GYM_POD');
 
 export const STORAGE = defineAction('STORAGE', [USER, TOKEN, REFRESH_TOKEN, CONFIGURATION,
     LANGUAGE, LOGIN_SAVED, DEVICE_TOKEN], appNamespace);
