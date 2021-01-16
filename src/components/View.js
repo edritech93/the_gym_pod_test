@@ -1,19 +1,22 @@
 import React from 'react';
-import { View as DefautlView } from 'react-native';
-import { moderateScale } from '../libs/scaling';
-import { Colors } from '../themes';
+import {View as DefautlView} from 'react-native';
+import {moderateScale} from '../libs/scaling';
+import {Colors} from '../themes';
 
 export default function View(props) {
-    const { children, style, ...restProps } = props;
-    return (
-        <DefautlView style={[
-            {
-                flex: 1,
-                paddingHorizontal: moderateScale(16),
-                backgroundColor: Colors.white,
-            },
-            style
-        ]} {...restProps}>{children}
-        </DefautlView>
-    )
+  const {children, style, ...restProps} = props;
+  return (
+    <DefautlView
+      style={[
+        {
+          flex: 1,
+          paddingHorizontal: moderateScale(16),
+          backgroundColor: Colors.white,
+        },
+        style,
+      ]}
+      {...restProps}>
+      {children}
+    </DefautlView>
+  );
 }

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
-import { moderateScale } from '../libs/scaling';
-import { Colors } from '../themes';
+import React, {useState, useEffect} from 'react';
+import {View, Image, StyleSheet} from 'react-native';
+import {moderateScale} from '../libs/scaling';
+import {Colors} from '../themes';
 import Badge from './Badge';
 
 const styles = StyleSheet.create({
@@ -43,8 +43,9 @@ export default function IconWithBadge(props) {
     <View style={styles.container}>
       <Image
         style={{
-          tintColor: props.focused ? Colors.primary : Colors.black
-        }} source={image}
+          tintColor: props.focused ? Colors.primary : Colors.black,
+        }}
+        source={image}
       />
       <Badge count={props.badgeCount} />
     </View>

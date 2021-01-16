@@ -1,11 +1,11 @@
 'use strict';
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 import app from './app';
 
 const appReducer = combineReducers({
-    app,
+  app,
 });
 
 export const rootReducer = (state, action) => {
-    return appReducer(state, action)
-}
+  return appReducer(state, action);
+};
