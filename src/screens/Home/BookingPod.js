@@ -35,8 +35,8 @@ export default function BookingPod(props) {
 
     function _loadBookingDate() {
         let objMarked = {}
-        for (let i = 0; i < 10; i++) {
-            const date = randomDate(new Date(), new Date(2021, 2, 1));
+        for (let i = 0; i < 300; i++) {
+            const date = randomDate(new Date(), new Date(2025, 12, 1));
             objMarked[Helper.dateFormat(date)] = {
                 disabled: true,
                 color: Colors.red,
