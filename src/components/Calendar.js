@@ -3,7 +3,6 @@ import { CalendarList } from 'react-native-calendars';
 import { Helper } from '../libs/Helper';
 import { moderateScale } from '../libs/scaling';
 import { Fonts, Colors } from '../themes';
-import Day from './Day';
 
 const XDate = require('xdate');
 
@@ -31,17 +30,29 @@ export default function Calendar(props) {
     function _setupInitialRange() {
         if (!initialRange) return
         const [fromDate, toDate] = initialRange;
-        const initMark = {
-            [fromDate]: {
-                startingDay: true,
-                color: theme.markColor,
-                textColor: theme.markTextColor
-            },
-            booked
-        }
-        const [mark, range] = _setupMarkedDates(fromDate, toDate, initMark)
         setMarkedDates(booked);
         setFromDate(fromDate);
+    }
+
+    function _onPressDay(day) {
+        if (isSingle) {
+            _onIsSingle(day);
+        } else {
+            if (!isFromDatePicked || (isFromDatePicked && isToDatePicked)) {
+                _setupStartMarker(day)
+                onStartDateSelected(day.dateString);
+            } else if (!isToDatePicked) {
+                const [mMarkedDates, range] = _setupMarkedDates(fromDate, day.dateString, {})
+                if (range >= 0) {
+                    setIsFromDatePicked(true);
+                    setIsToDatePicked(true);
+                    setMarkedDates(mMarkedDates);
+                    onSuccess(fromDate, day.dateString);
+                } else {
+                    _setupStartMarker(day)
+                }
+            }
+        }
     }
 
     function _setupMarkedDates(from, to, mark) {
@@ -83,27 +94,6 @@ export default function Calendar(props) {
         return [mark, range]
     }
 
-    function _onPressDay(day) {
-        if (isSingle) {
-            _onIsSingle(day);
-        } else {
-            if (!isFromDatePicked || (isFromDatePicked && isToDatePicked)) {
-                _setupStartMarker(day)
-                onStartDateSelected(day.dateString);
-            } else if (!isToDatePicked) {
-                const [mMarkedDates, range] = _setupMarkedDates(fromDate, day.dateString, {})
-                if (range >= 0) {
-                    setIsFromDatePicked(true);
-                    setIsToDatePicked(true);
-                    setMarkedDates(mMarkedDates);
-                    onSuccess(fromDate, day.dateString);
-                } else {
-                    _setupStartMarker(day)
-                }
-            }
-        }
-    }
-
     function _onIsSingle(day) {
         const dataArray = Object.keys(booked).map((key) => {
             return ({
@@ -133,33 +123,6 @@ export default function Calendar(props) {
         });
     }
 
-    function _closedTo(day, dataBook) {
-        const dateToCompare = new Date(day);
-        const timeToCompare = dateToCompare.getTime();
-
-        let result;
-        let minDistace;
-        const dataArray = Object.keys(dataBook).map((key) => key);
-
-        dataArray.map((item) => {
-            const currentDate = new Date(item);
-            if (isNaN(currentDate)) {
-                result = new Date(NaN);
-                minDistace = NaN;
-                return;
-            }
-
-            const distance = Math.abs(timeToCompare - currentDate.getTime())
-            if (result == null || distance < minDistace) {
-                if (Helper.isDateAfter(currentDate, dateToCompare)) {
-                    result = currentDate;
-                    minDistace = distance;
-                }
-            }
-        })
-        return result;
-    }
-
     return (
         <CalendarList
             theme={{
@@ -175,18 +138,6 @@ export default function Calendar(props) {
             current={fromDate}
             markedDates={markedDates}
             minDate={Helper.nowDate()}
-            // dayComponent={({ date, marking, onPress }) => {
-            //     console.log('------------------------------------');
-            //     console.log('marking => ', marking);
-            //     console.log('------------------------------------');
-            //     return (
-            //         <Day
-            //             date={date}
-            //             marking={marking}
-            //             onPress={onPress}
-            //         />
-            //     )
-            // }}
             onDayPress={(day) => _onPressDay(day)}
             {...restProps}
         />
