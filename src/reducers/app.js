@@ -1,10 +1,9 @@
 'use strict';
 import { Record } from 'immutable';
-import { CONNECTION_STATUS, ALERT } from '../actions/types';
+import { CONNECTION_STATUS } from '../actions/types';
 
 const objectRecord = new Record({
-    isConnected: undefined,
-    alert: undefined,
+    isConnected: true,
 });
 const initialState = new objectRecord();
 
@@ -14,10 +13,6 @@ const app = (state = initialState, action) => {
         case CONNECTION_STATUS.CHANGE:
             return state
                 .set('isConnected', action.isConnected);
-
-        case ALERT.SET:
-            return state
-                .set('alert', action.alert);
 
         default:
             return state;

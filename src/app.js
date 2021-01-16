@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { StatusBar, SafeAreaView, Platform } from 'react-native';
 import { DATA_LANGUAGE } from './constants/data';
+import { connectionChange } from './actions/app';
 import { STORAGE } from './actions/types';
 import { Provider } from 'react-redux';
 import { Helper } from './libs/Helper';
@@ -39,13 +40,13 @@ export default function App(props) {
 
     function _setupNetwork() {
         NetInfo.fetch().then(state => {
-            // setNetwork(state.isConnected);
+            connectionChange(state.isConnected)
         });
 
         NetInfo.addEventListener(state => {
             console.log("Connection type", state.type);
             console.log("Is connected?", state.isConnected);
-            // setNetwork(state.isConnected);
+            connectionChange(state.isConnected)
         });
     }
 
